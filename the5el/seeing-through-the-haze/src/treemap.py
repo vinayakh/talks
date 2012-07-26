@@ -42,7 +42,7 @@ class Treemap:
 #        print lower, upper
         r = Rectangle( lower, upper[0]-lower[0], upper[1] - lower[1],
                    edgecolor='k',
-                   facecolor= self.color_method(node))
+                   facecolor= self.color_method(lower[0],upper[1]))
         self.ax.add_patch(r)
 
 
@@ -59,8 +59,12 @@ if __name__ == '__main__':
             size_cache[thing] = reduce(int.__add__, [size(x) for x in thing])
             return size_cache[thing]
     import random
-    def random_color(thing):
-        return (random.random(),random.random(),random.random())
+    def random_color(lower,upper):
+        r = float(lower/10)
+        g = float(upper/10)
+        b = float(upper/max(upper,lower)) 
+        return (r,g,r)
+#        return (random.random(),random.random(),random.random())
 
     tree= ((5,(3,5)), 4, (5,2,(2,3,(3,2,2)),(3,3)), (3,2) )
 
