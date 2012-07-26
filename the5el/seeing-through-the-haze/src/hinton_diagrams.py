@@ -67,4 +67,5 @@ otherwise this takes forever.
 if __name__ == "__main__":
     hinton(np.random.randn(20, 20))
     plt.title('Example Hinton diagram - 20x20 random normal')
-    plt.show()
+#    plt.show()
+plt.savefig('hinton_diagrams.png')
