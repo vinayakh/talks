@@ -69,55 +69,128 @@
 }
 
 \frame {
-  \frametitle { R Packages Installation }
-  \alert{install.packages('packageName')} 
-  Select the closest mirror and install in your local directory
- 
-   \begin{itemize}
-      \item plyr
-      \item ggplot2
-      \item gdata
-      \item lattice
-   \end{itemize}
-}
-
-\frame {
   \frametitle { Basics - Starting off and getting help }
   \begin{itemize}
     \item Starting the interpreter
-    \item Getting online help (?)
-    \item Searching for help (??)
-    \item loading a library 
+    \item Getting online help  - ? or help()
+    \item Searching for help - ?? 
+		\item Approximate search - apropos()
   \end{itemize}
 }
 
 \frame {
+	\frametitle { Basics - Library commands }
+		\begin{itemize}
+			\item install.packages("packagename")
+			\item library("package")
+			\item update.packages("packages")
+			\item search()
+			\item detach("package:packagename")
+		\end{itemize}	
+}
+
+\frame {
+	\frametitle { Basics - Objects and Workspaces }
+		\begin{itemize}
+			\item attach(object) 
+			\item detach(object)
+			\item rm()
+			\item save.image("ExploreData.RData")
+			\item load("SavedWorkspace.RData")
+			\item save(data1,data2,file="SavedWorkspace.RData")
+		\end{itemize}
+}
+ 
+\frame {
   \frametitle { Basics - Using inbuilt function }
-    \item str
-    \item summary
-    \item head
-    \item View
-    \item Assignment <-
+		\begin{itemize}
+	    \item str
+		  \item summary
+	    \item head
+	    \item View
+	    \item Assignment \textless-
+		\end{itemize}
+}
+
+\frame {
+	\frametitle { Basics - Inbuilt Statistics functions }
+	\begin{itemize}
+		\item mean
+		\item sd
+		\item var
+		\item median
+		\item quantile
+		\item hist
+		\item plot
+	\end{itemize}
 }
 
 \section { Data Structures }
 \frame {
-   \frametitle { Data Frames }
+	\frametitle { vector }
 } 
 
-\section { Reading Data }
 \frame {
-   \frametitle { Multiple Sources }
-   \begin{itemize}
-      \item Excel files
+	\frametitle { Array }
+} 
+
+\frame {
+	\frametitle { Matrix }
+} 
+
+\frame {
+	\frametitle { List }
+} 
+
+\frame {
+	\frametitle { Data Frames }
+} 
+
+\frame {
+	\frametitle { Working with Data Structures }
+	\begin{itemize}
+		\item concatenate c()
+		\item cbind()
+		\item rbind()
+		\item data.frame()
+		\item mode()
+		\item class()
+	\end{itemize}
+}
+
+\frame {
+	\frametitle { Working with Data Structures }
+	\begin{itemize}
+		\item with()
+		\item sort()
+		\item subset()
+		\item select()
+		\item transform()
+	\end{itemize}
+}
+
+\frame {
+	\frametitle { Working with Data Structures }
+	\begin{itemize}
+		\item names()
+		\item row.names()
+		\item attributes()
+	\end{itemize}
+}
+
+\section { Working with Data }
+\frame {
+	\frametitle { Reading data from multiple Sources }
+		\begin{itemize}
+			\item Excel files
       \item web pages
       \item csv
       \item databases
    \end{itemize}
 }
-\section { Transforming Data }
+
 \frame {
-   \frametitle { plyr }
+   \frametitle { Transforming data }
 }
 
 \section { Packages and Datasets }
