@@ -1,0 +1,170 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Copenhagen}
+  \usecolortheme{beaver}
+  \setbeamercovered{transparent}
+  \setbeamertemplate{items}[ball]
+  \setbeamertemplate{theorems}[numbered]
+  \setbeamertemplate{footline}[frame number]
+}
+
+\usepackage{beamerthemesplit}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\title{ Data Analysis and Visualisation using R }
+\author{ Vinayak Hegde }
+\date{ July 11, 2013 }
+
+\AtBeginSection[]  % "Beamer, do the following at the start of every section"
+{
+\begin{frame}<beamer> 
+\frametitle{Outline} % make a frame titled "Outline"
+\tableofcontents[currentsection]  % show TOC and highlight current section
+\end{frame}
+}
+\begin{document}
+
+\frame {
+  \titlepage
+}
+
+\section*{Outline}
+\frame
+{ \frametitle{Outline of Topics}
+  \tableofcontents
+}
+
+\section{ Introduction }
+\frame {
+  \frametitle { What is R ? }
+  \begin{block}	{Wikipedia} R is a free software programming language and a software environment for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.
+  \end{block}
+}
+
+\frame {
+  \frametitle { Why use R ? }
+  \begin{itemize}
+    \item Designed and optimised for data processing
+    \item Lots of modules
+    \item State of the art graphics
+    \item Free as in freedom/beer
+    \item Helpful community
+    \item Very flexible and good integration
+  \end{itemize}
+}
+ 
+\frame {
+  \frametitle { R Studio Installation }
+  \begin{itemize}
+    \item Go to \href{http://www.rstudio.com/ide/download/}{{\alert {RStudio website}}}
+    \item Download the server/desktop version
+    \item For server - Open the browser and go to http://127.0.0.1:8787
+    \item For desktop - Click on the shortcut and you are ready to go
+  \end{itemize}
+}
+
+\frame {
+  \frametitle { R Packages Installation }
+  \alert{install.packages('packageName')} 
+  Select the closest mirror and install in your local directory
+ 
+   \begin{itemize}
+      \item plyr
+      \item ggplot2
+      \item gdata
+      \item lattice
+   \end{itemize}
+}
+
+\frame {
+  \frametitle { Basics - Starting off and getting help }
+  \begin{itemize}
+    \item Starting the interpreter
+    \item Getting online help (?)
+    \item Searching for help (??)
+    \item loading a library 
+  \end{itemize}
+}
+
+\frame {
+  \frametitle { Basics - Using inbuilt function }
+    \item str
+    \item summary
+    \item head
+    \item View
+    \item Assignment <-
+}
+
+\section { Data Structures }
+\frame {
+   \frametitle { Data Frames }
+} 
+
+\section { Reading Data }
+\frame {
+   \frametitle { Multiple Sources }
+   \begin{itemize}
+      \item Excel files
+      \item web pages
+      \item csv
+      \item databases
+   \end{itemize}
+}
+\section { Transforming Data }
+\frame {
+   \frametitle { plyr }
+}
+
+\section { Packages and Datasets }
+\frame {
+   \frametitle { Packages }
+   \begin{itemize}
+      \item plyr
+      \item ggplot2
+      \item reshape2
+      \item lattice
+   \end{itemize}
+}
+
+\frame {
+   \frametitle { Datasets }
+   \begin{itemize}
+      \item iris
+      \item mtcars
+      \item diamonds
+      \item HairEyeColor
+   \end{itemize}
+}
+
+\section { Visualisation }
+\frame {
+   \frametitle { Viz Packages }
+   \begin{itemize}
+      \item boxplot 
+      \item ggplot2
+      \item plot
+      \item lattice
+   \end{itemize}
+}
+
+\section { Webapps }
+\frame {
+   \frametitle { Shiny }
+}
+
+\section { Integration with other Systems }
+\frame {
+   \frametitle { Packages }
+   \begin{itemize}
+      \item hadoop 
+      \item c++
+      \item javascript
+   \end{itemize}
+}
+
+\end{document}
