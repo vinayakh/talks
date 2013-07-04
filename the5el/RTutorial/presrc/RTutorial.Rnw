@@ -118,7 +118,7 @@ opts_chunk$set(size = 'footnotesize')
 \end{frame}
 
 \begin{frame}[fragile] 
-	\frametitle { Basics - Str function }
+	\frametitle { Basics - str function }
 <<str function>>=
 ## str function demo
 str(mtcars)
@@ -126,7 +126,7 @@ str(mtcars)
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle { Basics - Summary function }
+	\frametitle { Basics - summary function }
 <<summary function>>=
 ## summary function demo
 summary(mtcars)
@@ -153,6 +153,31 @@ head(mtcars)
 		\item plot
 	\end{itemize}
 \end{frame}
+
+\begin{frame} [fragile]
+	\frametitle { Basics - Stats Functions Demo }
+<<stats-demo-1>>=
+set.seed(1729)
+x=rnorm(25)
+mean(x);var(x);sd(x)
+@
+\end{frame}
+
+\begin{frame} [fragile]
+	\frametitle { Basics - Stats Functions Demo }
+<<stats-demo-2>>=
+median(x);quantile(x)
+@
+\end{frame}
+
+\begin{frame} [fragile]
+	\frametitle { Basics - Stats Functions Demo }
+<<stats-demo-3, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
+hist(x);
+plot(x)
+@
+\end{frame}
+
 
 \section { Data Structures }
 \begin{frame}
