@@ -1,0 +1,272 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{
+	\usetheme{Copenhagen}
+	\usecolortheme{beaver}
+	\setbeamercovered{transparent}
+	\setbeamertemplate{items}[ball]
+	\setbeamertemplate{theorems}[numbered]
+	\setbeamertemplate{footline}[frame number]
+}
+
+\usepackage{beamerthemesplit}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\title{ Data Analysis and Visualisation using R }
+\author{ Vinayak Hegde }
+\date{ July 11, 2013 }
+
+\AtBeginSection[]  % "Beamer, do the following at the start of every section"
+{
+	\begin{frame}<beamer> 
+	\frametitle{Outline} % make a \begin{frame}titled "Outline"
+	\tableofcontents[currentsection]  % show TOC and highlight current section
+	\end{frame}
+}
+
+\begin{document}
+<<setup, include=FALSE>>=
+# smaller font size for chunks
+opts_chunk$set(size = 'footnotesize')
+@
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section*{Outline}
+\begin{frame}
+	\frametitle{Outline of Topics}
+	\tableofcontents
+\end{frame}
+
+\section{ Introduction }
+\begin{frame}
+	\frametitle { What is R ? }
+	\begin{block}	{Wikipedia} R is a free software programming language and a software environment for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Why use R ? }
+	\begin{itemize}
+	\item Designed and optimised for data processing
+		\item Lots of modules
+		\item State of the art graphics
+		\item Free as in freedom/beer
+		\item Helpful community
+		\item Very flexible and good integration
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { R Studio Installation }
+	\begin{itemize}
+		\item Go to \href{http://www.rstudio.com/ide/download/}{{\alert {RStudio website}}}
+		\item Download the server/desktop version
+		\item For server - Open the browser and go to http://127.0.0.1:8787
+		\item For desktop - Click on the shortcut and you are ready to go
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Basics - Starting off and getting help }
+	\begin{itemize}
+		\item Starting the interpreter
+		\item Getting online help  - ? or help()
+		\item Searching for help - ?? 
+		\item Approximate search - apropos()
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Basics - Library commands }
+	\begin{itemize}
+		\item install.packages("packagename")
+		\item library("package")
+		\item update.packages("packages")
+		\item search()
+		\item detach("package:packagename")
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle { Basics - Objects and Workspaces }
+	\begin{itemize}
+	\item attach(object) 
+		\item detach(object)
+		\item rm()
+		\item save.image("ExploreData.RData")
+		\item load("SavedWorkspace.RData")
+		\item save(data1,data2,file="SavedWorkspace.RData")
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Basics - Using inbuilt function }
+	\begin{itemize}
+		\item str
+		\item summary
+		\item head
+		\item View
+		\item Assignment \textless-
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile] 
+	\frametitle { Basics - Str function }
+<<str function>>=
+## str function demo
+str(mtcars)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Basics - Summary function }
+<<summary function>>=
+## summary function demo
+summary(mtcars)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Basics - head function }
+<<head function>>=
+## head function demo
+head(mtcars)
+@
+\end{frame}
+
+\begin{frame}
+	\frametitle { Basics - Inbuilt Statistics functions }
+	\begin{itemize}
+		\item mean
+		\item sd
+		\item var
+		\item median
+		\item quantile
+		\item hist
+		\item plot
+	\end{itemize}
+\end{frame}
+
+\section { Data Structures }
+\begin{frame}
+	\frametitle { vector }
+\end{frame} 
+
+\begin{frame}
+	\frametitle { Array }
+\end{frame} 
+
+\begin{frame}
+	\frametitle { Matrix }
+\end{frame} 
+
+\begin{frame}
+	\frametitle { List }
+\end{frame} 
+
+\begin{frame}
+	\frametitle { Data Frames }
+\end{frame} 
+
+\begin{frame}
+	\frametitle { Working with Data Structures }
+	\begin{itemize}
+		\item concatenate c()
+		\item cbind()
+		\item rbind()
+		\item data.frame()
+		\item mode()
+		\item class()
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Working with Data Structures }
+	\begin{itemize}
+		\item with()
+		\item sort()
+		\item subset()
+		\item select()
+		\item transform()
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Working with Data Structures }
+	\begin{itemize}
+		\item names()
+		\item row.names()
+		\item attributes()
+	\end{itemize}
+\end{frame}
+
+\section { Working with Data }
+\begin{frame}
+	\frametitle { Reading data from multiple Sources }
+	\begin{itemize}
+		\item Excel files
+		\item web pages
+		\item csv
+		\item databases
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Transforming data }
+\end{frame}
+
+\section { Packages and Datasets }
+\begin{frame}
+	\frametitle { Packages }
+	\begin{itemize}
+		\item plyr
+		\item ggplot2
+		\item reshape2
+		\item lattice
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Datasets }
+	\begin{itemize}
+		\item iris
+		\item mtcars
+		\item diamonds
+		\item HairEyeColor
+	\end{itemize}
+\end{frame}
+
+\section { Visualisation }
+\begin{frame}
+	\frametitle { Viz Packages }
+	\begin{itemize}
+		\item boxplot 
+		\item ggplot2
+		\item plot
+		\item lattice
+	\end{itemize}
+\end{frame}
+
+\section { Webapps }
+\begin{frame}
+	\frametitle { Shiny }
+\end{frame}
+
+\section { Integration with other Systems }
+\begin{frame}
+	\frametitle { Packages }
+	\begin{itemize}
+		\item hadoop 
+		\item c++
+		\item javascript
+	\end{itemize}
+\end{frame}
+
+\end{document}
