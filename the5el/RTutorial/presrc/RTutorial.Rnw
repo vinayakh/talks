@@ -24,8 +24,8 @@
 {
 	\begin{frame}<beamer> 
 	\frametitle{Outline} % make a \begin{frame}titled "Outline"
-	\tableofcontents[currentsection]  % show TOC and highlight current section
-	\end{frame}
+	\tableofcontents[currentsection,hideallsubsections]
+\end{frame}
 }
 
 \begin{document}
@@ -39,12 +39,13 @@ opts_chunk$set(size = 'footnotesize')
 \end{frame}
 
 \section*{Outline}
-\begin{frame}
+\begin{frame}[allowframebreaks]
 	\frametitle{Outline of Topics}
 	\tableofcontents
 \end{frame}
 
 \section{ Introduction }
+\subsection { About R }
 \begin{frame}
 	\frametitle { What is R ? }
 	\begin{block}	{Wikipedia} R is a free software programming language and a software environment for statistical computing and graphics. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.
@@ -73,6 +74,7 @@ opts_chunk$set(size = 'footnotesize')
 	\end{itemize}
 \end{frame}
 
+\subsection { Workspace Basics }
 \begin{frame}
 	\frametitle { Basics - Starting off and getting help }
 	\begin{itemize}
@@ -95,6 +97,7 @@ opts_chunk$set(size = 'footnotesize')
 	\end{itemize}
 \end{frame}
 
+\subsection { Basic functions }
 \begin{frame}
 	\frametitle { Basics - Using inbuilt function }
 	\begin{itemize}
@@ -132,6 +135,7 @@ head(mtcars)
 @
 \end{frame}
 
+\subsection { Basic Statistics functions }
 \begin{frame}
 	\frametitle { Basics - Inbuilt Statistics functions }
 	\begin{itemize}
@@ -161,6 +165,7 @@ median(x);quantile(x)
 @
 \end{frame}
 
+\subsection { Basic Plotting Functions }
 \begin{frame} [fragile]
 	\frametitle { Basics - Stats Functions Demo }
 <<stats-demo-3, fig.width=5, fig.height=5, out.width='.45\\linewidth', fig.show='hold'>>=
@@ -169,6 +174,7 @@ plot(x)
 @
 \end{frame}
 
+\subsection { Basic library functions }
 \begin{frame}
 	\frametitle { Basics - Library commands }
 	\begin{itemize}
@@ -196,6 +202,7 @@ plot(x)
 	\end{itemize}
 \end{frame}
 
+\subsection { Resources }
 \begin{frame}
 	\frametitle { Resources }
 	\begin{itemize}
@@ -208,6 +215,7 @@ plot(x)
 \end{frame}
 
 \section { Data Structures }
+\subsection { Vector }
 \begin{frame}
 	\frametitle { Vector }
 	\begin{block} { Vector Datastructure } 
@@ -227,6 +235,7 @@ c[2:4]
 @
 \end{frame} 
 
+\subsection { Matrix }
 \begin{frame}
 	\frametitle { Matrix }
 	\begin{block} { Matrix Datastructure }
@@ -255,6 +264,7 @@ m2
 @
 \end{frame}
 
+\subsection { Array }  
 \begin{frame}
 	\frametitle { Array }
 	\begin{block} { Array Datastructure }
@@ -279,6 +289,7 @@ arr
 @
 \end{frame}
 
+\subsection { Data Frames }
 \begin{frame}
 	\frametitle { Data Frames }
 	\begin{block} { Data Frame Datastructure }
@@ -314,6 +325,7 @@ summary(batinfo)
 @
 \end{frame}
 
+\subsection { Factors }
 \begin{frame}
 	\frametitle { Factors }
 	\begin{itemize}
@@ -342,6 +354,7 @@ as.numeric(grades2)
 @
 \end{frame}
 
+\subsection { List } 
 \begin{frame}
 	\frametitle { List }
 	\begin{block} { List Datastructure }
@@ -368,6 +381,7 @@ l
 @
 \end{frame}
 
+\subsection { Basic datastcuture functions }
 \begin{frame}
 	\frametitle { Working with Data Structures }
 	\begin{itemize}
@@ -401,6 +415,7 @@ l
 \end{frame}
 
 \section { Working with Data }
+\subsection { Reading Data }
 \begin{frame}
 	\frametitle { Reading data from multiple Sources }
 	\begin{itemize}
@@ -411,30 +426,97 @@ l
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle { Transforming data }
+\begin{frame}[fragile]
+	\frametitle { Reading data in Excel files }
+<<excel-example, eval=FALSE>>=
+library(gdata)
+read.xls("~/hacknight/All_India_Index_April3.xls", sheet=1)	
+@
 \end{frame}
 
-\section { Packages and Datasets }
-\begin{frame}
-	\frametitle { Packages }
-	\begin{itemize}
-		\item plyr
-		\item ggplot2
-		\item reshape2
-		\item lattice
-	\end{itemize}
+\begin{frame}[fragile]
+	\frametitle { Reading data from HTML tables on the web }
+<<html-table-example, eval=FALSE>>=
+library(XML)
+url <- "http://en.wikipedia.org/wiki/2011_Cricket_World_Cup_statistics"
+tbls <- readHTMLTable(url)
+specifictbl <- readHTMLTable(url, which=3)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Reading from csv files }
+<<csv-example, eval=FALSE>>=
+	stk <- read.csv("~/stackoverflow.csv")
+@
+\end{frame}
+
+\subsection { Transforming Data }
+\begin{frame}[fragile]
+	\frametitle { Get a subset of data }
+Using Subset function
+<<subset-example-1, eval=FALSE>>=
+stkjs <- subset (stk,Tag=="javascript")
+stkweb <- subset (stk, Tag=="javascript" | Tag=="html" | Tag =="css" | Tag=="ajax")
+@
+An alternative method by column number and names
+<<subset-example-2, eval=FALSE>>=
+carsmall <- mtcars[1:10,c('mpg','cyl','disp','hp','drat')]
+carsmall <- mtcars[1:10,1:5]
+carstrans <- t(carsmall)
+@
+\end{frame}
+
+\begin{frame} [fragile]
+	\frametitle { Filtering a set of data }
+<<filter-example-1>>=
+car400plus <- mtcars[mtcars$displ > 400,]
+carcyl6 <- mtcars[mtcars$cyl == 6,]
+powcars <- mtcars[mtcars$cyl == 8 & mtcars$disp > 400,]
+@
+\end{frame}
+
+\begin{frame} [fragile]
+	\frametitle { Merging Dataframes }
+Merging by rows
+<<merge-example-1, eval=FALSE>>=
+car400 <- mtcars[mtcars$cyl == 8 & mtcars$disp == 400,]
+car400plus <- mtcars[mtcars$cyl == 8 & mtcars$disp > 400,]
+car400all <- merge(car400,car400plus,all=TRUE)
+@
+
+Alternative Method using rbind
+<<merge-example-2,eval=FALSE>>=
+car400all <-rbind(car400,car400plus)
+@
+\end{frame}
+
+\begin{frame} [fragile]
+  \frametitle { Merging Dataframes }
+Merging by columns
+<<merge-example-3, eval=FALSE>>=
+carset1 <- mtcars[1:5,c('mpg','disp')]
+carset2 <- mtcars[1:5,c('cyl','drat')]
+merge(carset1,carset2,all=TRUE) # Does this work ? why ? 
+merge(carset1,carset2,by="row.names",all=TRUE)
+@
+Alternative Method using cbind()
+<<merge-example-4,eval=FALSE>>=
+carall <- cbind(carset1,carset2)
+@
 \end{frame}
 
 \begin{frame}
-	\frametitle { Datasets }
-	\begin{itemize}
-		\item iris
-		\item mtcars
-		\item diamonds
-		\item HairEyeColor
-	\end{itemize}
+	\frametitle { melt }
 \end{frame}
+
+\begin{frame}
+	\frametitle { *apply functions }
+\end{frame}
+
+\begin{frame}
+	\frametitle { plyr stuff}
+\end
 
 \section { Visualisation }
 \begin{frame}
