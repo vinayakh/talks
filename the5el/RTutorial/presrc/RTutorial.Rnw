@@ -29,7 +29,7 @@
 }
 
 \begin{document}
-<<setup, include=FALSE>>=
+<<setup, include=FALSE, prompt=TRUE>>=
 # smaller font size for chunks
 opts_chunk$set(size = 'footnotesize')
 @
@@ -84,17 +84,6 @@ opts_chunk$set(size = 'footnotesize')
 \end{frame}
 
 \begin{frame}
-	\frametitle { Basics - Library commands }
-	\begin{itemize}
-		\item install.packages("packagename")
-		\item library("package")
-		\item update.packages("packages")
-		\item search()
-		\item detach("package:packagename")
-	\end{itemize}	
-\end{frame}
-
-\begin{frame}
 	\frametitle { Basics - Objects and Workspaces }
 	\begin{itemize}
 	\item attach(object) 
@@ -114,6 +103,8 @@ opts_chunk$set(size = 'footnotesize')
 		\item head
 		\item View
 		\item Assignment \textless-
+		\item source
+		\item sink
 	\end{itemize}
 \end{frame}
 
@@ -178,27 +169,204 @@ plot(x)
 @
 \end{frame}
 
+\begin{frame}
+	\frametitle { Basics - Library commands }
+	\begin{itemize}
+		\item install.packages("packagename")
+		\item library("package")
+		\item update.packages("packages")
+		\item search()
+		\item detach("package:packagename")
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+	\frametitle { Install Views}
+	\begin{itemize}
+		\item install.views("packageGroupName")
+		\item update.views("packageGroupName")
+	\end{itemize}
+	Package Groups
+	\begin{itemize}
+		\item Econometrics
+		\item Graphics
+		\item TimeSeries
+		\item HighPerformanceComputing
+		\item Optimization
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Resources }
+	\begin{itemize}
+		\item \href{http://www.r-project.org}{{\alert {R Project}}}
+		\item \href{http://www.rseek.org}{{\alert {R Seek}}}
+		\item \href{http://www.rdocumentation.org}{{\alert {R Documentation}}}
+		\item \href{http://journal.r-project.org/}{{\alert {R Journal}}}
+		\item \href{http://cran.rstudio.com/}{{\alert {CRAN}}}
+	\end{itemize}
+\end{frame}
 
 \section { Data Structures }
 \begin{frame}
-	\frametitle { vector }
-\end{frame} 
+	\frametitle { Vector }
+	\begin{block} { Vector Datastructure } 
+		Vectors are one-dimensional arrays that can hold numeric data, character data, or logical data. Vectors can be column vectors (created with c()) or row vectors(can be created using the transpose function t()).
+	\end{block}
+\end{frame}
 
-\begin{frame}
-	\frametitle { Array }
+\begin{frame} [fragile]
+	\frametitle { Vector - Demo}
+<<vector-demo-1>>=
+a <- c(1, 4, 3, -1, 0, 2, 9)
+b <- c("Apples", "Oranges", "Banana", "Mango")
+c <- c(FALSE, TRUE, TRUE, FALSE )
+a[4]
+b[c(2,4)]
+c[2:4]
+@
 \end{frame} 
 
 \begin{frame}
 	\frametitle { Matrix }
+	\begin{block} { Matrix Datastructure }
+		A matrix is a two-dimensional array where each element has the same mode (numeric,
+character, or logical). Matrices are created with the matrix() function.
+	\end{block}
 \end{frame} 
 
+\begin{frame} [fragile]
+	\frametitle { Matrix - Demo 1 }
+<<matrix-demo-1>>=
+m1 <- matrix(1:20, nrow=5, ncol=4)
+m1
+@
+\end{frame}
+
+\begin{frame} [fragile]
+	\frametitle { Matrix - Demo 2 }
+<<matrix-demo-2, tidy=FALSE>>=
+cells <- c("A","B","C","D","E","F","G","H","I")
+rnames <- c("R1", "R2", "R3")
+cnames <- c("C1","C2","C3")
+m2 <- matrix(cells,nrow=3,ncol=3,byrow=TRUE, 
+			dimnames=list(rnames,cnames))
+m2
+@
+\end{frame}
+
 \begin{frame}
-	\frametitle { List }
+	\frametitle { Array }
+	\begin{block} { Array Datastructure }
+		Arrays are similar to matrices but can have more than two dimensions. They’re created with an array() function. Like matrices, they can contain only one datatype.
+	\end{block}
 \end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle { Array - Demo 1 }
+<<array-demo-1>>=
+arows <- c("R1","R2")
+acols <- c("C1","C2","C3")
+azind <- c("Z1","Z2")
+arr <- array(1:12,c(2,3,2),dimnames=list(arows,acols,azind))
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Array - Demo 2 }
+<<array-demo-2>>=
+arr
+@
+\end{frame}
 
 \begin{frame}
 	\frametitle { Data Frames }
+	\begin{block} { Data Frame Datastructure }
+		A Dataframe is like a matrix but each of the columns can be a different datatype. Another way to think about it is as a bunch of different types of columns with similar keys (like a database table). A dataframe is created with the data.frame() function.
+	\end{block}
 \end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle { Dataframe Demo 1 }
+<<dataframe-demo-1>>=
+batname <- c("Sachin", "Sourav", "Rahul", "Laxman") 
+battype <- c("RHB", "LHB", "RHB", "RHB")
+matches <- c(198, 113, 164, 134)
+batave <- c(53.86, 42.17, 52.31, 45.97)
+batinfo <- data.frame(batname, battype, matches, batave)
+batinfo
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Dataframe Demo 2 }
+<<dataframe-demo-2>>=
+batinfo$batname
+batinfo$battype
+as.numeric(batinfo$battype)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Dataframe Demo 3 }
+<<dataframe-demo-3>>=
+summary(batinfo)
+@
+\end{frame}
+
+\begin{frame}
+	\frametitle { Factors }
+	\begin{itemize}
+		\item Factors are made of categorical data
+		\item Factors can be ordered or unordered
+		\item Factors are represented internally as numbers
+		\item Assignment is by alphabetical order
+	\end{itemize}
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle { Factor - Demo 1 }
+<<factor-demo-1>>=
+grades1 <- factor(c("Bad", "Poor", "Average", "Good", "Excellent"))
+grades1
+as.numeric(grades1)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Factor - Demo 2 }
+<<factor-demo-2>>=
+grades2 <- factor(grades1, order=TRUE, levels=grades1)
+grades2
+as.numeric(grades2)
+@
+\end{frame}
+
+\begin{frame}
+	\frametitle { List }
+	\begin{block} { List Datastructure }
+		List is a bit of a mixed bag. A list is an ordered collection of objects. A list allows you to gather a variety of (possibly unrelated) objects under one name. A list may contain an arbitrary combination of vectors, matrices, data frames, and even other lists. You create a list using the list() function.
+	\end{block}
+\end{frame} 
+
+\begin{frame}[fragile]
+	\frametitle { List Demo 1 }
+<<list-demo-1>>=
+a <- "Hello world"
+b <- c(17,19,23,29)
+c <- matrix(1:12,nrow=3)
+l <- list(header=a, primes=b, c)
+l[[2]]
+l[["primes"]]
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { List Demo 2 }
+<<list-demo-2>>=
+l 
+@
+\end{frame}
 
 \begin{frame}
 	\frametitle { Working with Data Structures }
