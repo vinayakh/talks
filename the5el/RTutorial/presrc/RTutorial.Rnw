@@ -438,7 +438,7 @@ read.xls("~/hacknight/All_India_Index_April3.xls", sheet=1)
 	\frametitle { Reading data from HTML tables on the web }
 <<html-table-example, eval=FALSE>>=
 library(XML)
-url <- "http://en.wikipedia.org/wiki/2011_Cricket_World_Cup_statistics"
+url<-"http://en.wikipedia.org/wiki/2011_Cricket_World_Cup_statistics"
 tbls <- readHTMLTable(url)
 specifictbl <- readHTMLTable(url, which=3)
 @
@@ -449,15 +449,18 @@ specifictbl <- readHTMLTable(url, which=3)
 <<csv-example, eval=FALSE>>=
 	stk <- read.csv("~/stackoverflow.csv")
 @
+Alternatives are read.table(), read.csv2()
+
 \end{frame}
 
 \subsection { Transforming Data }
 \begin{frame}[fragile]
 	\frametitle { Get a subset of data }
 Using Subset function
-<<subset-example-1, eval=FALSE>>=
+<<subset-example-1, tidy=FALSE, eval=FALSE>>=
 stkjs <- subset (stk,Tag=="javascript")
-stkweb <- subset (stk, Tag=="javascript" | Tag=="html" | Tag =="css" | Tag=="ajax")
+stkweb <- subset (stk, Tag=="javascript" | Tag=="html" 
+| Tag =="css" | Tag=="ajax")
 @
 An alternative method by column number and names
 <<subset-example-2, eval=FALSE>>=
@@ -506,17 +509,119 @@ carall <- cbind(carset1,carset2)
 @
 \end{frame}
 
+\begin{frame}[fragile]
+	\frametitle { reshape library - melt function }
+<<melt-function,eval=FALSE,tidy=FALSE>>=
+stk <- read.csv("~/stackoverflow.txt")
+head(stk)
+nrow(stk)
+stkm <- melt(stk)
+head(stkm)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { reshape library - cast function }
+<<cast-function,eval=FALSE,tidy=FALSE>>=
+head(stkm)
+stkm$variable <- as.numeric(sub("X","",stkm$variable))
+head(stkm)
+names(stkm)[2] <- "YearMonth"
+head(stkm)
+stkc <- cast(stkm, Tag ~ YearMonth)
+head(stkc)
+@
+\end{frame}
+
+\subsection { Live example } 
 \begin{frame}
-	\frametitle { melt }
+	\frametitle { Making sense of data - A live example }
+	\begin{block} { Lets answer these questions } 
+		Given the Cars dataset, what is the median/mean mpg of the datapoints by number of cylinders. also what is the number of datapoints we have in each set
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Approach 1 - Manual approach - Subset and functions }
+<<analysis-1,eval=FALSE>>=
+unique(mtcars$cyl)
+cyl4 <- subset(mtcars,cyl==4)
+cyl6 <- subset(mtcars,cyl==6)
+cyl8 <- subset(mtcars,cyl==8)
+nrow(cyl4)
+nrow(cyl6)
+nrow(cyl8)
+mean(cyl6$mpg)
+mean(cyl4$mpg)
+mean(cyl8$mpg)
+median(cyl4$mpg)
+median(cyl6$mpg)
+median(cyl8$mpg)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle { Approach 2 - Get smarter - Use loops }
+<<analysis-2,eval=FALSE>>=
+ans = data.frame()
+for ( cylnum in unique(mtcars$cyl) )
+{
+tmp = subset(mtcars, mtcars$cyl==cylnum)
+count = nrow(tmp)
+mean = mean(tmp$mpg)
+median = median(tmp$mpg)
+ans = rbind(ans, data.frame(cylnum, count, mean, median) )
+}
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle { Approach 3 - Base R - Use *apply functions }
+<<analysis-3,eval=FALSE>>=
+tapply(mtcars$mpg,mtcars$cyl,FUN=length)
+tapply(mtcars$mpg,mtcars$cyl,FUN=mean)
+tapply(mtcars$mpg,mtcars$cyl,FUN=median)
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle { Approach 4 - Base R - use aggregate function }
+<<analysis-4,eval=FALSE>>=
+aggregate(mpg~cyl, data=mtcars, FUN="length")
+aggregate(mpg~cyl, data=mtcars, FUN="mean")
+aggregate(mpg~cyl, data=mtcars, FUN="median")
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle {Approach 5 - doBy Package - use summaryBy function }
+<<analysis-5,eval=FALSE,tidy=FALSE>>=
+summaryBy(mpg~cyl,data=mtcars,FUN=function(x) 
+  c(count=length(x), mean=mean(x), median=median(x)))
+@
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle { Approach - plyr library - use **ply functions }
+<<analysis-6,eval=FALSE,tidy=FALSE>>=
+ddply(mtcars,'cyl',function(x) 
+  c(count=nrow(x), mean=mean(x$mpg), median=median(x$mpg)),
+	.progress='text')
+@
 \end{frame}
 
 \begin{frame}
-	\frametitle { *apply functions }
+	\frametitle { More about the plyr module }
+plyr is a very useful module for applying functions to different datastructures. The functions in plyr are of the form XYply where 'X' is the Input datatype and 'Y' is the Output datatype
+So as in the above example, the input datatype was a dataframe and the output datatype is a dataframe. The type and their letter designations are
+	\begin{itemize}
+		\item “a” - array
+		\item “d” - data.frame
+		\item “l” - list
+		\item “m” - matrix
+		\item “\textunderscore” - no output returned 
+	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	\frametitle { plyr stuff}
-\end
 
 \section { Visualisation }
 \begin{frame}
