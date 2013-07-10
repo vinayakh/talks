@@ -656,9 +656,9 @@ So as in the above example, the input datatype was a dataframe and the output da
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile,allowframebreaks]
 	\frametitle { Boxplot example }
-<<boxplot-demo-1, fig.width=8, fig.height=6, fig.show='hold',tidy=FALSE>>=
+<<boxplot-demo-1, fig.width=8, fig.height=5, fig.show='hold',tidy=FALSE>>=
 boxplot(mpg ~ cyl, data=mtcars, main="Car Mileage Data", 
         xlab="No. of Cylinders", ylab="Miles Per Gallon", 
         Notch=TRUE, col=rainbow(3))
@@ -749,13 +749,163 @@ heatmap(mtscaled[cutree(hc.rows,k=2)==2,],
 
 \subsection { Grammar of Graphics }
 \begin{frame}
-	\frametitle { Introduction }
+	\frametitle { Introduction to ggplot2 }
 	\begin{itemize}
 		\item Thinking about dataviz moves away from mechanics to representation
-		\item 
-		\item
+		\item Allows you to layer graphics and added remove components 
+		\item Based on Leland Wilkinson's "The Grammar of Graphics" book
+		\item Allows to compose graphs based on components
+		\item Allows to build beautiful graphs quickly
 	\end{itemize}
 \end{frame}
+
+\begin{frame}
+	\frametitle { Components of Graphics - 1 }
+	\begin{itemize}
+		\item \textbf { Data } - The cleaned up data with all the different variables, factors. This includes the \textbf { mappings } to the aesthetic attributes of a plot.
+		\item \textbf { Geom } - Geometric objects or geoms represent what you actually see on the screen. This includes lines, splines, points, polygons etc.
+		\item \textbf { Stat } - Statistical transformations. These are optional. Examples include binning in a histogram or summarising a 2D relationship with a linear model.
+	\end{itemize}  
+\end{frame}
+
+\begin{frame}
+	\frametitle { Components of Graphics - 2 }
+	\begin{itemize}
+		\item \textbf { Scale } - Scales map values in the data into the aesthetic space such as color, size or shape. Scales draw axes and legends to represent what is seen on the screen to the actual underlying data.
+		\item \textbf { Coord } - A coordinate sytems that provides a mapping from the data onto the screen. Examples include Cartesian coordinates, map coordinates and polar coordinates.
+		\item \textbf { Facet } - A facet gives us a method to break un the data into subsets as well as display these on the screen. Great for increasing infomation density while graphing multidimensional data.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+	\frametitle { Scatterplot }
+<<scatter-demo-1,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE>>=
+library(ggplot2)
+qplot(displ,hwy,data=mpg)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-2,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE>>=
+qplot(displ,hwy,data=mpg,geom="jitter")
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-3,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-4,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class,shape=cyl)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-5,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class,shape=cyl,size=cty)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-6,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE,eval=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class,shape=cyl,size=cty) 
++ facet_wrap (~year)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-7,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,echo=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class,shape=cyl,size=cty) + facet_wrap (~year)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-7-alt,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,echo=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class,size=cty) + facet_grid (cyl ~ year)
+@
+\end{frame}
+
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot 2 }
+<<scatter-demo-8,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+qplot(class, hwy, data = mpg)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot 2 }
+<<scatter-demo-9,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+qplot(reorder(class, hwy), hwy, data = mpg)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot 2 }
+<<scatter-demo-10,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+qplot(reorder(class, hwy), hwy, data = mpg, geom="boxplot")
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot 3 }
+<<scatter-demo-11,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+qplot(Sepal.Length, Petal.Length, data = iris, color = Species, 
+      size = Petal.Width, alpha = I(0.7),
+      xlab = "Sepal Length", ylab = "Petal Length",
+      main = "Sepal vs. Petal Length in Fisher's Iris data")
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Stackedbar Chart }
+<<stacked-demo,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+qplot(depth, data = diamonds, binwidth = 0.2, fill = cut) + xlim(55,70)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Line plot }
+<<scatter-demo-12,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+# Scale + Layering + Aesthetic example
+plotl <- ggplot(mtcars, aes(x=hp,y=mpg))
+plotl + geom_point(aes(color=wt)) + geom_smooth()
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Polar plot }
+<<scatter-demo-13,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE>>=
+# from ggplot2 docs
+# Windrose + doughnut plot
+movies$rrating <- cut_interval(movies$rating, length = 1)
+movies$budgetq <- cut_number(movies$budget, 4)
+
+doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
+
+# Wind rose
+doh + geom_bar(width = 1) + coord_polar()
+@
+\end{frame}
+
+\begin{frame}
+	\frametitle { Cons of Grammar of Graphics }
+	\begin{itemize}
+		\item Grammar doesn't specify finer points of graphing such os font size or background color. GGplot2 Themes tries to mitigate this)
+		\item Great for static graphs but not good for interactivity or animation. There are workarounds for this though.
+	\end{itemize}
+\end{frame}
+
 \section { Webapps }
 \begin{frame}
 	\frametitle { Shiny }
