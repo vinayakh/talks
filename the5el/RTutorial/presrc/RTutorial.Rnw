@@ -74,6 +74,16 @@ opts_chunk$set(size = 'footnotesize')
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle { R Studio Basics }
+  \begin{itemize}
+    \item The Source Editor
+    \item The Console / Interpreter
+    \item Workspace / History
+    \item Plots / Packages / Help
+  \end{itemize}
+\end{frame}
+
 \subsection { Workspace Basics }
 \begin{frame}
 	\frametitle { Basics - Starting off and getting help }
@@ -381,7 +391,7 @@ l
 @
 \end{frame}
 
-\subsection { Basic datastcuture functions }
+\subsection { Basic datastucture functions }
 \begin{frame}
 	\frametitle { Working with Data Structures }
 	\begin{itemize}
@@ -823,14 +833,22 @@ qplot(displ,hwy,data=mpg,color=class,shape=cyl,size=cty)
 
 \begin{frame}[fragile,allowframebreaks]
   \frametitle { Scatterplot }
-<<scatter-demo-7,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,echo=FALSE>>=
+<<scatter-demo-6-alt,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE,echo=FALSE>>=
 qplot(displ,hwy,data=mpg,color=class,shape=cyl,size=cty) + facet_wrap (~year)
 @
 \end{frame}
 
 \begin{frame}[fragile,allowframebreaks]
   \frametitle { Scatterplot }
-<<scatter-demo-7-alt,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,echo=FALSE>>=
+<<scatter-demo-7,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,eval=FALSE>>=
+qplot(displ,hwy,data=mpg,color=class,shape=cyl,size=cty) 
++ facet_wrap (~year)
+@
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]
+  \frametitle { Scatterplot }
+<<scatter-demo-7-alt,fig.width=8, fig.height=4, fig.show='hold',warnings=FALSE,message=FALSE,tidy=FALSE,echo=FALSE>>=
 qplot(displ,hwy,data=mpg,color=class,size=cty) + facet_grid (cyl ~ year)
 @
 \end{frame}
@@ -907,8 +925,47 @@ doh + geom_bar(width = 1) + coord_polar()
 \end{frame}
 
 \section { Webapps }
+\subsection { Introduction to Shiny }
 \begin{frame}
 	\frametitle { Shiny }
+  \begin{block} { Shiny package from Rstudio }
+    Shiny is a new package from RStudio that makes it incredibly easy to build interactive web applications with R.
+  \end{block}
+\end{frame}
+
+\subsection { Features }
+\begin{frame}
+  \frametitle { Features }
+  \begin{itemize}
+    \item Build useful web applications with only a few lines of code—no JavaScript required.
+    \item Shiny user interfaces can be built entirely using R, or integrated with HTML, CSS, and JavaScript for more flexibility.
+    \item Works in any R environment (Console R, Rgui for Windows or Mac, ESS, StatET, RStudio, etc.)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle { Features }
+  \begin{itemize}
+    \item Pre-built output widgets for displaying plots, tables, and printed output of R objects.
+    \item Fast bidirectional communication between the web browser and R using the websockets package.
+    \item Uses a reactive programming model that eliminates messy event handling code, so you can focus on the code that really matters.
+  \end{itemize}
+\end{frame}
+
+\subsection { Architecture }
+\begin{frame}
+  \frametitle { Architecture and Code Layout }
+  \begin{itemize}
+    \item Shiny applications have two components - A user-interface definition script and server script
+    \item It follows event-based programming model - Anytime any UI component is changed such as selection or movemnet of slider, an event is fired to the backend to handle.
+    \item Server and client communicate seamlessly using websockets.
+    \item An event triggers a server response and the UI is refreshed accordingly to reflect the change.
+  \end{itemize}
+\end{frame}
+
+\subsection { Code example }
+\begin{frame}
+  \frametitle { A live plot of mpg dataset }
 \end{frame}
 
 \section { Integration with other Systems }
