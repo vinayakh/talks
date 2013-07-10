@@ -624,16 +624,138 @@ So as in the above example, the input datatype was a dataframe and the output da
 \end{frame}
 
 \section { Visualisation }
+\subsection { Introduction }
 \begin{frame}
-	\frametitle { Viz Packages }
+	\frametitle { Why Visualisation ? }
+		\begin{itemize}
+			\item Easier to percieve differences easily (Magnitude, Range, Difference)
+			\item Easier to see outliers, anomalier and grouping
+			\item Easy to do exploratory analysis in R
+			\item Easier to build narratives (Picture worth a million numbers)
+			\item Bling !!! 
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Visualisation Packages }
 	\begin{itemize}
-		\item boxplot 
-		\item ggplot2
-		\item plot
+		\item boxplot, pie, hist from base graphics
+		\item specialized packages like vioplot
+		\item Grammar of Graphics - ggplot2
 		\item lattice
 	\end{itemize}
 \end{frame}
 
+\subsection { Basic plots }
+\begin{frame}
+	\frametitle { Boxplots }
+	\begin{itemize}
+		\item Good for individual variable or groups of variables
+		\item Good for showing outliers and quartiles ("shape")
+		\item take up less space than a histogram 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle { Boxplot example }
+<<boxplot-demo-1, fig.width=8, fig.height=6, fig.show='hold',tidy=FALSE>>=
+boxplot(mpg ~ cyl, data=mtcars, main="Car Mileage Data", 
+        xlab="No. of Cylinders", ylab="Miles Per Gallon", 
+        Notch=TRUE, col=rainbow(3))
+@
+\end{frame}
+
+\begin{frame}
+	\frametitle { Violin plots }
+	\begin{itemize}
+		\item Similar to boxplots but show probablity density
+		\item Good for showing distribution
+		\item Look like violins hence the name
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]
+	\frametitle { Violin Plot Example } 
+<<vioplot-demo-1, fig.width=8, fig.height=5, fig.show='hold',tidy=FALSE>>=
+library(vioplot)
+library(sm)
+cyl4 <- subset(mtcars,cyl==4)
+cyl6 <- subset(mtcars,cyl==6)
+cyl8 <- subset(mtcars,cyl==8)
+vioplot::vioplot(cyl4$mpg,cyl6$mpg,cyl8$mpg, 
+	names=c("cyl4","cyl6", "cyl8"), col="yellow")
+@
+\end{frame}
+
+\begin{frame}
+	\frametitle { Barplot }
+	\begin{itemize}
+		\item Good to compare relative magnitudes
+		\item Good to compare time series data
+		\item Easier on the eyes
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]
+	\frametitle { Barplot Example }
+<<barplot-demo-1, fig.width=8, fig.height=5, fig.show='hold',tidy=FALSE>>=
+barplot(table(mtcars$cyl),main="Car distribution", 
+        ylab="number of cylinders",xlab="Number of cars", 
+        horiz=TRUE,col=topo.colors(3))
+@
+\end{frame}
+
+\begin{frame}[allowframebreaks,fragile]
+  \frametitle { Stacked Barplot Example }
+<<stackedbarplot-demo-1,fig.width=8, fig.height=5, fig.show='hold',tidy=FALSE>>=
+counts <- table(mtcars$cyl, mtcars$gear)
+barplot(counts, main="Car Distribution by Gears and CYL",
+         xlab="Number of Gears", col=rainbow(3),
+         legend = rownames(counts))
+@
+\end{frame}
+
+\subsection { Advanced Plots }
+\begin{frame}[fragile]
+  \frametitle { Heatmap Example 1 }
+<<heatmap-demo-1,fig.width=3, fig.height=3, fig.show='hold',eval=FALSE>>=
+# scale data to mean=0, sd=1 and convert to matrix
+mtscaled <- as.matrix(scale(mtcars))
+
+# create heatmap and don't reorder columns
+heatmap(mtscaled, Colv=F, scale='none')
+@
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle { Heatmap Example 2 }
+<<heatmap-demo-2,fig.width=3, fig.height=3, fig.show='hold',eval=FALSE,tidy=FALSE>>=
+# cluster rows
+hc.rows <- hclust(dist(mtscaled))
+plot(hc.rows)
+
+# transpose the matrix and cluster columns
+hc.cols <- hclust(dist(t(mtscaled)))
+
+# draw heatmap for first cluster
+heatmap(mtscaled[cutree(hc.rows,k=2)==1,], 
+        Colv=as.dendrogram(hc.cols), scale='none')
+
+# draw heatmap for second cluster
+heatmap(mtscaled[cutree(hc.rows,k=2)==2,], 
+        Colv=as.dendrogram(hc.cols), scale='none')
+@
+\end{frame}
+
+\subsection { Grammar of Graphics }
+\begin{frame}
+	\frametitle { Introduction }
+	\begin{itemize}
+		\item Thinking about dataviz moves away from mechanics to representation
+		\item 
+		\item
+	\end{itemize}
+\end{frame}
 \section { Webapps }
 \begin{frame}
 	\frametitle { Shiny }
