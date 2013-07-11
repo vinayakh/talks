@@ -972,10 +972,48 @@ doh + geom_bar(width = 1) + coord_polar()
 \begin{frame}
 	\frametitle { Packages }
 	\begin{itemize}
-		\item hadoop 
-		\item c++
-		\item javascript
+		\item hadoop - RHadoop
+		\item c++ - RCpp
+		\item javascript - Shiny
 	\end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle { Literate programming using Knitr }
+  \begin{block} { Literate programming }
+  Literate programming is an approach to programming introduced by Donald Knuth in which a program is given as an explanation of the program logic in a natural language, such as English, interspersed with snippets of macros and traditional source code, from which a compilable source code can be generated
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle {Knitr}
+  \begin{itemize}
+    \item Transparent engine for dynamic report generation with R
+    \item Implements literate programming paradigm
+    \item Only one document to edit. Less pain to keep everything in sync
+    \item Can output into different final outputs such as HTML, PDF etc
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle {Knitr features}
+  \begin{itemize}
+    \item Faithful output
+    \item Built-in cache
+    \item Easy Formatting
+    \item Flexibility in output devices
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle { Knitr Demo }
+\end{frame}
+
+\begin{frame}
+  \frametitle { Thank you }
+  \begin{itemize}
+    \item Twitter \textbf {@vinayakh}
+    \item Email \textbf {vinayakh at gmail}
+  \end{itemize}
+\end{frame}
 \end{document}
